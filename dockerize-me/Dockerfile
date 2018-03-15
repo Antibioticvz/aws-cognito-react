@@ -22,8 +22,11 @@ RUN mkdir -p /opt/app && cd /opt/app && ln -s /tmp/node_modules
 # Copy the code
 ADD . /opt/app
 
-RUN yarn build
+RUN yarn build --production
+
+# Install `serve` to run the application.
+RUN npm install -g serve
 
 EXPOSE 3000
-CMD [ "yarn", "start" ]
-#CMD ["node", "server/dist/server.js"]
+
+CMD serve -s build -p 3000
