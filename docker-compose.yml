@@ -1,0 +1,20 @@
+version: '2'
+services:
+  cognito:
+    build: cognito/.
+    command: yarn start
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./cognito/.:/service
+      - /service/node_modules
+  api:
+    build: api/.
+    command: "node dist/index.js"
+    environment:
+      NODE_ENV: development
+    volumes:
+      - ./api/.:/opt/app
+      - /opt/app/node_modules
+    ports:
+      - "5000:5000"

@@ -1,0 +1,29 @@
+version: '2'
+services:
+  next-cognito:
+    restart: always
+    image: 079659954133.dkr.ecr.us-east-1.amazonaws.com/next-cognito
+    mem_limit: '256M'
+    depends_on:
+      - api
+    #command: yarn start
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: next-cognito
+        awslogs-region: us-east-1
+        awslogs-stream-prefix: next-cognito
+    ports:
+      - "3000:3000"
+  api:
+    restart: always
+    image: 079659954133.dkr.ecr.us-east-1.amazonaws.com/api
+    mem_limit: 134217728
+    logging:
+          driver: awslogs
+          options:
+            awslogs-group: api
+            awslogs-region: us-east-1
+            awslogs-stream-prefix: the_api
+    ports:
+      - '5000:5000'
